@@ -1,0 +1,29 @@
+services:
+  libcoap:
+    # Human-friendly container and image names
+    container_name: libcoap-runtime
+    image: libcoap:openssl
+
+    # Build from the Dockerfile one level up (../)
+    build:
+      context: ..
+      dockerfile: Dockerfile
+
+    # Expose standard CoAP ports (UDP!)
+    ports:
+      - "5683:5683/udp"   # CoAP
+      - "5684:5684/udp"   # CoAPS (DTLS)
+
+    # Default command to run the CoAP server (override as needed)
+    # You can comment this out and run custom commands:
+    # docker compose run libcoap coap-client ...
+    command: ["coap-server", "-v", "7", "-A", "0.0.0.0"]
+
+    # Basic healthcheck — verifies the process is up
+    healthcheck:
+      test: ["CMD-SHELL", "pidof coap-server || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+  
