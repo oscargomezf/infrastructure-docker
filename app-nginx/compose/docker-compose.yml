@@ -1,0 +1,11 @@
+services:
+  nginx:
+    image: app-nginx
+    container_name: app-nginx-container
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+#    volumes:
+#      - html/index.html:/usr/share/nginx/html/index.html:ro

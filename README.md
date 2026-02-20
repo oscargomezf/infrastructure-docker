@@ -35,7 +35,7 @@ docker build -t <image-name> .
 
 ### ▶️ Start a service using Docker Compose
 ```bash
-docker-compose up -d
+docker compose -f compose/docker-compose.yml up -d
 ```
 
 ### ▶️ Stop a service
