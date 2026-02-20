@@ -1,0 +1,8 @@
+services:
+  python-app:
+    image: app-python
+    container_name: app-python-container
+    build:
+      context: ..
+      dockerfile: Dockerfile
+#    command: python script.py
