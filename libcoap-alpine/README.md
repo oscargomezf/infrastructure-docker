@@ -65,7 +65,7 @@ coap-server -A 0.0.0.0 -p 5683 -k mysecretpassword -i /config/psk-identity-map.t
 ### Examples CoAP coap-client
 
 ```bash
-docker exec -it libcoap-alpine-runtime coap-client -m get coap://localhost/.well-known/core -v 7
+docker exec -it libcoap-alpine-runtime coap-client -m get coap://localhost/.well-known/core
 </> General Info
 	ct:	0
 </async>
@@ -94,7 +94,7 @@ Hello, world!
 ### Examples CoAPs coap-client
 
 ```bash
-docker exec -it libcoap-alpine-runtime coap-client -m get -u sensor-1 -k a7f3c19d52e48b0fa9c4e2317bd08e6f coaps://localhost/.well-known/core -v 7
+docker exec -it libcoap-alpine-runtime coap-client -m get -u sensor-1 -k a7f3c19d52e48b0fa9c4e2317bd08e6f coaps://localhost/.well-known/core
 </> General Info
 	ct:	0
 </async>

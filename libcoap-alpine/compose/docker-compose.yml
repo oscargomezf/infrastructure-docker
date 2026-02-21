@@ -34,7 +34,7 @@ services:
     command: ["coap-server",
       "-A", "0.0.0.0",
       "-p", "5683",
-      "-h", "${DEFAULT_HINT}",
+#      "-h", "${DEFAULT_HINT}",
       "-k", "${DEFAULT_PSK}",
       "-i", "/config/psk-identity-map.txt",
       "-d", "10",
