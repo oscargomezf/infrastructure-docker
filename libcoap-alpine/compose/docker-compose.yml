@@ -1,29 +1,55 @@
 services:
   libcoap:
     # Human-friendly container and image names
-    container_name: libcoap-runtime
-    image: libcoap:openssl
+    container_name: libcoap-alpine-runtime
+    image: libcoap-alpine:openssl
 
     # Build from the Dockerfile one level up (../)
     build:
       context: ..
       dockerfile: Dockerfile
 
+
+    # Mount local config directory into the container (read‑only)
+    volumes:
+      - ./config:/config:ro
+
     # Expose standard CoAP ports (UDP!)
     ports:
-      - "5683:5683/udp"   # CoAP
+      - "5683:5683/udp"   # CoAP. Comment this line if you don't want to expose CoAP without DTLS.
       - "5684:5684/udp"   # CoAPS (DTLS)
 
     # Default command to run the CoAP server (override as needed)
     # You can comment this out and run custom commands:
     # docker compose run libcoap coap-client ...
-    command: ["coap-server", "-v", "7", "-A", "0.0.0.0"]
+    # CoAP only (UDP)
+    # command: ["coap-server",
+    #   "-A", "0.0.0.0",
+    #   "-p", "5683",
+    #   "-d", "10",
+    #   "-v",
+    #   "${VERBOSITY}"
+    # ]
+    # CoAP with DTLS (UDP)
+    command: ["coap-server",
+      "-A", "0.0.0.0",
+      "-p", "5683",
+      "-h", "${DEFAULT_HINT}",
+      "-k", "${DEFAULT_PSK}",
+      "-i", "/config/psk-identity-map.txt",
+      "-d", "10",
+      "-v", "${VERBOSITY}",
+      "-V", "${VERBOSITY}"
+    ]
+
+    #Restart automatically unless manually stopped
+    restart: unless-stopped
 
     # Basic healthcheck — verifies the process is up
     healthcheck:
-      test: ["CMD-SHELL", "pidof coap-server || exit 1"]
+      #disable: true
+      test: ["CMD-SHELL", "pgrep -x coap-server >/dev/null || exit 1"]
       interval: 10s
       timeout: 3s
       retries: 5
       start_period: 5s
-  

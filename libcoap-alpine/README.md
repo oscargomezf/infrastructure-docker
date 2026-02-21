@@ -49,7 +49,6 @@ cd compose
 docker compose build
 ```
 
-
 ### Example coap-server
 
 ```bash
@@ -60,20 +59,64 @@ $ docker run --rm -p 5683:5683/udp libcoap-alpine:openssl coap-server -A 0.0.0.0
 
 ```bash
 docker run --rm -p 5683:5683/udp -p 5684:5684/udp oscargomezf/libcoap-alpine:openssl \
-coap-server -A 0.0.0.0 -p 5683 -k mysecretpassword -u myidentity -V 5684 -v 7
+coap-server -A 0.0.0.0 -p 5683 -k mysecretpassword -i /config/psk-identity-map.txt -V 7 -v 7
 ```
 
-### Example coap-client
+### Examples CoAP coap-client
 
 ```bash
-docker run --rm oscargomezf/libcoap-alpine:openssl coap-client -m get coap://ip_address/time
+docker run --rm oscargomezf/libcoap-alpine:openssl coap-client -m get coap://localhost/time
+Feb 21 14:54:39
 ```
 
-### Example coap-client
+```bash
+coap-client -m get -u sensor-1 -k supersecret coaps://localhost/.well-known/core -v 7
+</> General Info
+	ct:	0
+</async>
+	ct:	0
+</example_data> Example Data
+	ct:	0
+	obs:	
+</time> Internal Clock
+	rt:	ticks
+	if:	clock
+	ct:	0
+	obs:	
+```
 
 ```bash
-docker run --rm libcoap-alpine:openssl oscargomezf/coap-client  -m post coap://ip_address/new_resource -e "Hello, world!"
-docker run --rm libcoap-alpine:openssl oscargomezf/coap-client -m get coap://ip_address/new_resource
+docker run --rm libcoap-alpine:openssl oscargomezf/coap-client -m post coap://localhost/new_resource -e "Hello, world!"
+docker run --rm libcoap-alpine:openssl oscargomezf/coap-client -m get coap://localhost/new_resource
+Hello, world!
+```
+
+### Examples CoAPs coap-client
+
+```bash
+docker run --rm oscargomezf/libcoap-alpine:openssl coap-client -m get -u sensor-1 -k supersecret coap://localhost/time
+Feb 21 14:54:39
+```
+
+```bash
+docker run --rm oscargomezf/libcoap-alpine:openssl coap-client -m get -u sensor-1 -k supersecret coap://localhost/.well-known/core -v 7
+</> General Info
+	ct:	0
+</async>
+	ct:	0
+</example_data> Example Data
+	ct:	0
+	obs:	
+</time> Internal Clock
+	rt:	ticks
+	if:	clock
+	ct:	0
+	obs:	
+```
+
+```bash
+docker run --rm libcoap-alpine:openssl oscargomezf/coap-client -m post -u sensor-1 -k supersecret coap://localhost/new_resource -e "Hello, world!"
+docker run --rm libcoap-alpine:openssl oscargomezf/coap-client -m get -u sensor-1 -k supersecret coap://localhost/new_resource
 Hello, world!
 ```
 

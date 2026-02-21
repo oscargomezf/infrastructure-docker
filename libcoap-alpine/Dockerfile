@@ -52,3 +52,6 @@ COPY --from=builder /usr /usr
 # Optional: create a non-root user to run the tools/examples
 RUN addgroup -S app && adduser -S app -G app
 USER app
+
+# Expose standard CoAP ports (UDP): 5683 (CoAP) and 5684 (CoAPS/DTLS)
+EXPOSE 5683/udp 5684/udp
