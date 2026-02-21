@@ -2,5 +2,5 @@
 # Official format (coap-server): hint,identity,psk
 # PSKs are 128-bit (16 bytes) expressed in hexadecimal
 
-CoAP,sensor-1,supersecret
-CoAP,sensor-2,0x9e4d23a0c7b1f2d83caf94627a0be19d
+CoAP,sensor-1,a7f3c19d52e48b0fa9c4e2317bd08e6f
+CoAP,sensor-2,9e4d23a0c7b1f2d83caf94627a0be19d

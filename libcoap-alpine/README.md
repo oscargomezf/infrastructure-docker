@@ -65,12 +65,7 @@ coap-server -A 0.0.0.0 -p 5683 -k mysecretpassword -i /config/psk-identity-map.t
 ### Examples CoAP coap-client
 
 ```bash
-docker run --rm oscargomezf/libcoap-alpine:openssl coap-client -m get coap://localhost/time
-Feb 21 14:54:39
-```
-
-```bash
-coap-client -m get -u sensor-1 -k supersecret coaps://localhost/.well-known/core -v 7
+docker exec -it libcoap-alpine-runtime coap-client -m get coap://localhost/.well-known/core -v 7
 </> General Info
 	ct:	0
 </async>
@@ -86,20 +81,20 @@ coap-client -m get -u sensor-1 -k supersecret coaps://localhost/.well-known/core
 ```
 
 ```bash
-docker run --rm libcoap-alpine:openssl oscargomezf/coap-client -m post coap://localhost/new_resource -e "Hello, world!"
-docker run --rm libcoap-alpine:openssl oscargomezf/coap-client -m get coap://localhost/new_resource
+docker exec -it libcoap-alpine-runtime coap-client -m get coap://localhost/time
+Feb 21 14:54:39
+```
+
+```bash
+docker exec -it libcoap-alpine-runtime coap-client -m post coap://localhost/new_resource -e "Hello, world!"
+docker exec -it libcoap-alpine-runtime coap-client -m get coap://localhost/new_resource
 Hello, world!
 ```
 
 ### Examples CoAPs coap-client
 
 ```bash
-docker run --rm oscargomezf/libcoap-alpine:openssl coap-client -m get -u sensor-1 -k supersecret coap://localhost/time
-Feb 21 14:54:39
-```
-
-```bash
-docker run --rm oscargomezf/libcoap-alpine:openssl coap-client -m get -u sensor-1 -k supersecret coap://localhost/.well-known/core -v 7
+docker exec -it libcoap-alpine-runtime coap-client -m get -u sensor-1 -k a7f3c19d52e48b0fa9c4e2317bd08e6f coaps://localhost/.well-known/core -v 7
 </> General Info
 	ct:	0
 </async>
@@ -115,8 +110,12 @@ docker run --rm oscargomezf/libcoap-alpine:openssl coap-client -m get -u sensor-
 ```
 
 ```bash
-docker run --rm libcoap-alpine:openssl oscargomezf/coap-client -m post -u sensor-1 -k supersecret coap://localhost/new_resource -e "Hello, world!"
-docker run --rm libcoap-alpine:openssl oscargomezf/coap-client -m get -u sensor-1 -k supersecret coap://localhost/new_resource
-Hello, world!
+docker exec -it libcoap-alpine-runtime coap-client -m get -u sensor-1 -k a7f3c19d52e48b0fa9c4e2317bd08e6f coaps://localhost/time
+Feb 21 14:54:39
 ```
 
+```bash
+docker exec -it libcoap-alpine-runtime coap-client -m post -u sensor-1 -k a7f3c19d52e48b0fa9c4e2317bd08e6f coaps://localhost/new_resource -e "Hello, world!"
+docker exec -it libcoap-alpine-runtime coap-client -m get -u sensor-1 -k a7f3c19d52e48b0fa9c4e2317bd08e6f coaps://localhost/new_resource
+Hello, world!
+```
